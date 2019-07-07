@@ -5,9 +5,12 @@
 
 #define OVERSAMPLING_FACTOR 2
 #define MAX_SCREEN_WIDTH 8*1024
-#define MAX_SCREEN_HEIGHT 8*768
+#define MAX_SCREEN_HEIGHT 7*768
 #define MEM_PIXEL_SIZE 3
 #define MEM_TEXTURE_SIZE MEM_PIXEL_SIZE*MAX_SCREEN_WIDTH*MAX_SCREEN_HEIGHT*OVERSAMPLING_FACTOR
+
+#define MULTI_THREADING 
+#define THREAD_NUMBER 2
 
 #define DEFAULT_SCREEN_WIDTH 1024
 #define DEFAULT_SCREEN_HEIGHT 768
@@ -31,20 +34,17 @@ unsigned int screen_height  = DEFAULT_SCREEN_HEIGHT;
 unsigned int texture_width  = DEFAULT_SCREEN_WIDTH*OVERSAMPLING_FACTOR;
 unsigned int texture_height = DEFAULT_SCREEN_HEIGHT*OVERSAMPLING_FACTOR;
 
-long time_display;
-long time_mandelbroot;
-
-unsigned char frame_data[MEM_TEXTURE_SIZE];
+unsigned char texture_data[MEM_TEXTURE_SIZE];
 GLuint tex;
 
-int mand_result;
+void generateTexture(){
 
-void display(){
+    int mand_result;
     t_complex c;
+    t_rgb color;
 
 #ifdef DEBUG_TIME
-    time_display = clock();
-    time_mandelbroot = clock();
+    long time_mandelbroot = clock();
 #endif
 
     int n = 0;
@@ -55,39 +55,50 @@ void display(){
 
 #ifdef DEBUG_PALETTE
 
-            t_rgb color = palette_getColor(i/(texture_width/palette_size));
+            color = palette_getColor(i/(texture_width/palette_size));
 
-            frame_data[n++] = color.red;
-            frame_data[n++] = color.green;
-            frame_data[n++] = color.blue;
+            texture_data[n++] = color.red;
+            texture_data[n++] = color.green;
+            texture_data[n++] = color.blue;
 #else
 
 
             mand_result = mand_compute(c);
 
-            t_rgb color = palette_getColor(mand_result);
+            color = palette_getColor(mand_result);
 
             if(mand_result == mand_max_iter){
-                frame_data[n++] = 0;
-                frame_data[n++] = 0;
-                frame_data[n++] = 0;
+                texture_data[n++] = 0;
+                texture_data[n++] = 0;
+                texture_data[n++] = 0;
             }else{
-                frame_data[n++] = color.red;
-                frame_data[n++] = color.green;
-                frame_data[n++] = color.blue;
+                texture_data[n++] = color.red;
+                texture_data[n++] = color.green;
+                texture_data[n++] = color.blue;
             }
 #endif
         }
     }
+
 #ifdef DEBUG_TIME
     time_mandelbroot = clock() - time_mandelbroot;
+    printf("DEBUG TIME: Mandelbroot time: %e\n", (double) time_mandelbroot / (double) CLOCKS_PER_SEC);
 #endif
+}
+
+void display(){
+
+#ifdef DEBUG_TIME
+    long time_display = clock();
+#endif
+
+    generateTexture(texture_width, texture_height, palette_size);
 
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture_width, texture_height, 0, GL_RGB, GL_UNSIGNED_BYTE, frame_data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture_width, texture_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture_data);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glClear(GL_COLOR_BUFFER_BIT);
@@ -105,7 +116,6 @@ void display(){
 
 #ifdef DEBUG_TIME
     time_display = clock() - time_display;
-    printf("DEBUG TIME: Mandelbroot time: %e\n", (double) time_mandelbroot / (double) CLOCKS_PER_SEC);
     printf("DEBUG TIME: Display time: %e\n", (double) time_display / (double) CLOCKS_PER_SEC);
 #endif
 }
