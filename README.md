@@ -1,1 +1,1 @@
-# mandelbroot-c
+# mandelbroot-fpga
