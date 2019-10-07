@@ -157,7 +157,7 @@ void keyPressed (unsigned char key, int x, int y) {
             break;
 
         case 'q':
-            zoom*=1.5;
+            zoom*=2.0;
             break;
 
         case 'e':

@@ -1,0 +1,21 @@
+ --> mandelbrot_top_pkg
+mandelbrot_fpga/mandelbrot_top/enable_deglitch --> enable_deglitch
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /down_deglitch  --> down_deglitch
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /horizontal_accumulator --> horizontal_accumulator
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /left_degltich --> left_degltich
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /right_deglitch --> right_deglitch
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /up_deglitch --> up_deglitch
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /vertical_accumulator --> vertical_accumulator
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /zoom_accumulator --> zoom_accumulator
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /zoom_in_deglitch --> zoom_in_deglitch
+mandelbrot_fpga/mandelbrot_top/keyboard_handler /zoom_out_deglitch --> zoom_out_deglitch
+mandelbrot_fpga/mandelbrot_top/keyboard_handler  --> keyboard_handler
+mandelbrot_fpga/mandelbrot_top/mandelbrot_core/mandelbroot_pipeline/mandelbroot_array --> mandelbroot_array
+mandelbrot_fpga/mandelbrot_top/mandelbrot_core/mandelbroot_pipeline --> mandelbroot_pipeline
+mandelbrot_fpga/mandelbrot_top/mandelbrot_core/plane_converter  --> plane_converter
+mandelbrot_fpga/mandelbrot_top/mandelbrot_core/vga_driver/horizontal_ranges --> horizontal_ranges
+mandelbrot_fpga/mandelbrot_top/mandelbrot_core/vga_driver/vertical_ranges  --> vertical_ranges
+mandelbrot_fpga/mandelbrot_top/mandelbrot_core/vga_driver --> vga_driver
+mandelbrot_fpga/mandelbrot_top/mandelbrot_core --> mandelbrot_core
+mandelbrot_fpga/mandelbrot_top/video_test_deglitch --> video_test_deglitch
+mandelbrot_fpga/mandelbrot_top --> mandelbrot_top
