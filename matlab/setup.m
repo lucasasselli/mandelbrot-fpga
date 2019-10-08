@@ -12,6 +12,8 @@ Ts = 1.35E-8;
 
 % Algorithm
 MAX_ITERATIONS = 128;
+SEQUENTIAL_STEPS = 2;
+PIPELINE_SIZE = 64;
 Z_BUS_TYPE = fixdt(1,18,15);
 
 % Other
