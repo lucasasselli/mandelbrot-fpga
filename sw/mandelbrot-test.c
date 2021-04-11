@@ -174,9 +174,20 @@ void keyPressed (unsigned char key, int x, int y) {
 }
 
 int main(int argc, char* argv[]){
+    
+    int palette_size = 256;
+    int mand_size = 256;
 
-    mand_init(atoi(argv[1]));
-    palette_init(atoi(argv[2]));
+    if(argc > 1){
+        mand_size = atoi(argv[1]);
+    }
+
+    if(argc > 2){
+        palette_size = atoi(argv[2]);
+    }
+
+    mand_init(mand_size);
+    palette_init(palette_size);
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
