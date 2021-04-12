@@ -2,7 +2,8 @@
   
 ## Introduction  
 *Mandelbrot FPGA* is an FPGA implementation for a calculator and visualizer of the homonimous [mathematical set](https://en.wikipedia.org/wiki/Mandelbrot_set "mathematical set"). The logic was designed using Mathworks Simulink HDL Coder for the Terasic DE10-Nano Board.  
-This project is the result of a bad flu, an unhelathy fascination with fractals and too much spare time.  
+
+This project is the result of a bad flu, an unhealthy fascination with fractals and too much spare time.  
   
 ## Features  
 - 1280x720p  resolution
